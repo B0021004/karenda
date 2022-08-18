@@ -1,0 +1,48 @@
+#   カレンダーデータベース
+CREATE DATABASE apr01;
+
+CREATE TABLE Calendar_table(
+    days        date,
+    scheduleID  INT     AUTO_INCREMENT,
+
+    PRIMARY KEY(scheduleID, days)
+);
+
+CREATE TABLE Kinds_table(
+    kindsID     INT             PRIMARY KEY,
+    kinds       nvarchar(10)    NOT NULL
+);
+
+CREATE TABLE Users_table(
+    userID          INT             AUTO_INCREMENT,
+    UserName        nvarchar(20)    NOT NULL,
+    UserPassword    varchar(20)     NOT NULL,
+
+    PRIMARY KEY(userID)
+);
+
+CREATE TABLE Schedule_table(
+    scheduleID  INT             PRIMARY KEY,
+    kindsID     INT             NOT NULL,
+    userID      INT             NOt NULL,
+    memo        nvarchar(255)   NOT NULL,
+
+    FOREIGN KEY(scheduleID) REFERENCES Calendar_table(scheduleID),	
+    FOREIGN KEY(kindsID) REFERENCES Kinds_table(kindsID),
+    FOREIGN KEY(userID) REFERENCES Users_table(userID)
+);
+
+
+INSERT INTO Kinds_table VALUES(1, '学校');
+INSERT INTO Kinds_table VALUES(2, '試験');
+INSERT INTO Kinds_table VALUES(3, '課題');
+INSERT INTO Kinds_table VALUES(4, '行事');
+INSERT INTO Kinds_table VALUES(5, '就活');
+INSERT INTO Kinds_table VALUES(6, 'アルバイト');
+INSERT INTO Kinds_table VALUES(7, '旅行');
+
+INSERT INTO Users_table VALUES(0, 'sako', 'P@ssw0rd');
+
+
+
+
